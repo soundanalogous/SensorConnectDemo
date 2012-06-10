@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+	<meta charset=utf-8 />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+  
+  <title></title>
+  </head>
+    <body>
+	<div id="status">Sensor Connect Demo</div>
+
+	<button id="accel" type="button">Start Accelerometer</button>
+	<button id="compass" type="compass">Start Compass</button>
+	<button id="gps" type="gps">Start GPS</button>
+
+	<button id="btn" type="button">Send Message</button>
+
+	<p id="commands"></p>
+
+	<div id="startScreen">
+		<p>Enter Server IP Address:</p>
+		<input id="ipAddr" type="text" name="ip" />
+		<div>
+			<button id="defaultBtn" type="button">Use Default</button>
+		</div>
+	</div>
+
+	<script src="js/cordova-1.8.0.js"></script>
+    <script src="js/main.js"></script>
+
+  </body>
+</html>

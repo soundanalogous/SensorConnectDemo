@@ -1,0 +1,40 @@
+html {
+	width: 100%;
+	height: 100%;
+}
+body {
+	font-family: sans-serif;
+	font-size: 20px;
+	width: 300px;
+}
+button {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 22px;
+	color: #00AEFF;
+	width: 100%;
+} 
+#defaultBtn {
+	margin-top: 40px;
+	width: 280px;
+}
+#status {
+	color: #00AEFF;
+	font-size: 24px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+#ipAddr {
+	font-size: 22px;
+	width: 80%;
+}
+#startScreen {
+	/*display: none;*/
+	position: absolute;
+	padding: 20px;
+	top: 0px;
+	left: 0px;
+	background-color: #F7F7F7;
+	width: 100%;
+	height: 100%;
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset=utf-8 />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<style>
+	html, body, p {
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		padding: 10px;
+		font-family: sans-serif;
+		font-size: 14px;
+		color: #333;
+		width: 250px;
+	}
+	h2 {
+		margin-bottom: 20px;
+		font-size: 18px;
+		color: #00AEFF;
+	}
+	p.label {
+		font-size: 14px;
+		padding-bottom: 10px;
+		color: #00AEFF;
+	}
+	.data {
+		margin-bottom: 20px;
+	}
+	#controls {
+		padding: 10px;
+		background-color: #F7F7F7;
+		margin-bottom: 10px;
+	}
+	#incoming {
+		padding: 10px;
+		background-color: #F7F7F7;
+		margin-bottom: 10px;
+	}
+	#commands {
+		padding: 10px;
+		background-color: #F7F7F7;
+	}
+</style>
+
+	<title>Sensor Connect Demo</title>
+</head>
+<body>
+
+	<h2>Sensor Connect Demo</h2>
+
+	<div id="incoming">
+		<p class="label">iOS device data:</p>
+		<div class="data">
+			<p id="accelStatus"></p>
+		</div>
+		<div class="data">
+			<p id="compassStatus"></p>
+		</div>
+		<div class="data">
+			<p id="geoStatus"></p>
+		</div>
+	</div>
+
+	<div id="controls">
+		<p class="label">Device controls:</p>
+		<button id="vibrate" type="button">Vibrate</button>
+		<button id="beep" type="button">Beep</button>
+	</div>
+
+	<div id="commands">
+		<p class="label">Message from device:</p>
+		<p id="command"><p>
+	</div>
+
+	<script>
+		var socket = new WebSocket("ws://localhost:8080");
+		var commands = document.querySelector('#command');
+		var accel = document.querySelector('#accel');
+		var vibrateBtn = document.querySelector('#vibrate');
+		var beepBtn = document.querySelector('#beep');
+		var socketConnection;
+
+		socket.onopen = function () {
+			socketConnection = socket;
+
+			socket.onmessage = function (msg) {
+				var data = JSON.parse(msg.data);
+				if (data['accelerometer']) {
+					handleAccelerometerData(data.accelerometer);
+				} else if (data['compass']) {
+					handleCompassData(data.compass);
+				} else if (data['geo']) {
+					handleGeoData(data.geo);
+				} else if (data['command']) {
+					parseCommands(data.command);
+				}
+			};
+
+			socket.onclose = function() {
+
+			};
+		};
+
+		/**
+		 * Handle accelerometer data from the iOS device
+		 * @param {Object} acc The accelerometer data
+		 */
+		function handleAccelerometerData(acc) {
+			var squared = "2";
+			squared = squared.sup();
+			accelStatus.innerHTML = 'Accelerometer data (m/s' + squared + '): <br />' + 
+									'x = ' + acc.x + '<br />' +
+									'y = ' + acc.y + '<br />' +
+									'z = ' + acc.z + '<br />' +
+									'pitch = ' + acc.pitch + '<br />' +
+									'roll = ' + acc.roll + '<br />';
+		}
+
+		/**
+		 * Handle compass data from the iOS device
+		 * @param {Object} compass The compass data
+		 */
+		function handleCompassData(compass) {
+			compassStatus.innerHTML = 'Compass data: <br />' +
+									'heading = ' + compass.heading;
+		}
+
+		/**
+		 * Handle geo (GPS) data from the iOS device
+		 * @param {Object} geo The geo/gps data
+		 */
+		function handleGeoData(geo) {
+			geoStatus.innerHTML = 'Geo data: <br />' +
+								'latitude = ' + geo.latitude + '<br />' +
+								'longitude = ' + geo.longitude + '<br />' +
+								'altitude = ' + geo.altitude + '<br />' +
+								'heading = ' + geo.heading + '<br />' +
+								'speed = ' + geo.speed + '<br />';
+		}
+
+		/**
+		 * Parse commands from the server.
+		 * @param {Object} command The data from the server
+		 */
+		function parseCommands(command) {
+			if (command["message"]) {
+				// display message commands in the browser
+				commands.innerHTML = command.message;
+			} else {
+				console.log(message);
+			}
+		}
+
+		vibrateBtn.addEventListener("click", function(evt) {
+			commands.innerHTML = "";
+			// send a notify command as a JSON string
+			socketConnection.send(JSON.stringify({"command": {"notify": "vibrate"}}));
+		});
+
+		beepBtn.addEventListener("click", function(evt) {
+			commands.innerHTML = "";
+			// send a notify command as a JSON string
+			socketConnection.send(JSON.stringify({"command": {"notify": "beep"}}));
+		});
+
+	</script>
+
+</body>
+</html>

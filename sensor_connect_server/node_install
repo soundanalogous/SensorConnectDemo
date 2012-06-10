@@ -1,0 +1,14 @@
+node js install instructions:
+
+1. goto: nodejs.org
+2. Click Download
+3. Click Macintosh Installer
+4. When the install has finished downloading, launch it by Double-clcking on node-v0.6.19.pkg (or the most recent version)
+5. Installation Wizard:
+	- Introduction: click Continue
+	- Installation Type: click Install
+	- Enter your password when prompted
+	- Click close when installation is complete
+6. Open Terminal (Applications/Utilities/Terminal)
+	- when terminal opens (you're now using the command line) type 'node -v' (without the quotes) and hit the Enter key.
+	- You should see 'v0.6.19' printed (or the more recent version you downloaded)
