@@ -1,5 +1,5 @@
 .DS_Store
 
-server_connect_server/node_modules/
-SensorConnect.xcodeproj/project.xcworkspace/xcuserdata/
-SensorConnect.xcodeproj/xcuserdata/
+sensor_connect_server/node_modules/
+SensorConnect/SensorConnect.xcodeproj/project.xcworkspace/xcuserdata/
+SensorConnect/SensorConnect.xcodeproj/xcuserdata/
