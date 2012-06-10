@@ -1,7 +1,7 @@
 About
 ===
 
-This is a simple demo using node.js and Cordova (PhoneGap) to create a communication channel between an iOS device and a web application running. The example demonstrates how to send iOS sensor data and custom messages to a web application and how to send commands from the web app to the iOS device.
+This is a simple demo using node.js and Cordova (PhoneGap) to create a communication channel between an iOS device and a web application. The example demonstrates how to send iOS sensor data and custom messages to a web application and how to send commands from the web app to the iOS device.
 
 Currently this demo only works for iOS devices. It could be made to work with Android as well if you add a Cordova websocket
 plugin for Android. I just don't have an Anroid device to test with.
